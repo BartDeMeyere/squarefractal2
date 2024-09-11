@@ -7,7 +7,7 @@ canvas.height = innerHeight * devicePixelRatio
 canvas.style.width = 100 + "%"
 canvas.style.height = 100 + "%"
 
-var size = 600 
+var size = 300
 var blocks = []
 var color = "rgba(255,255,255,.9)"
 var order = 1
