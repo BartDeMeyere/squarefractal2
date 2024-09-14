@@ -7,7 +7,7 @@ canvas.height = innerHeight * devicePixelRatio
 canvas.style.width = 100 + "%"
 canvas.style.height = 100 + "%"
 
-var size = 300
+var size = 600 
 var blocks = []
 var color = "rgba(255,255,255,.9)"
 var order = 1
@@ -34,25 +34,35 @@ function RenderFractal(){
 
     if(order > 6){
 
-        cancelAnimationFrame(animId)
+        console.log("done")
         return
     }
 
     if(order === 1){
 
-       var newblock = new Box(canvas.width/2 - size/2  , canvas.height/2 - size/2, size , color)
-       newblock.targetx = canvas.width/2 - size/2
-       newblock.targety = canvas.height/2 - size/2
-       blocks.push(newblock)
+       var sx = canvas.width/2 
+       var sy = canvas.height/2 
+
+       for(var i = -1 ; i < 2 ; i++){
+
+            for(var j = -1 ; j < 2 ; j++){
+
+                if(i !== 0 || j !== 0){
+
+                    var newblock = new Box(sx + j * size/3   , sy + i * size/3 , size/3 , color)
+                    newblock.targetx = sx + j * size
+                    newblock.targety = sy + i * size
+                    blocks.push(newblock)
+                }
+            }
+       }
 
     }
+
 
     if(order > 1){
 
         for(var i = 0 ; i < blocks.length ; i++){
-
-            //for each block that is finished create 8 new blocks
-            if(!blocks[i].finished){
 
                 var newsize = blocks[i].size/3
                 var sx = blocks[i].x + newsize
@@ -64,7 +74,7 @@ function RenderFractal(){
 
                         if(row !== 0 || col !== 0){
 
-                            var newblock = new Box(blocks[i].x + newsize + col * newsize/3 , blocks[i].y + newsize + row * newsize/3 , newsize , color)
+                            var newblock = new Box(sx + col * newsize/3 , sy + row * newsize/3 , newsize , color)
                             newblock.targetx = sx + col * blocks[i].size 
                             newblock.targety = sy + row * blocks[i].size 
                             newblocks.push(newblock)
@@ -72,11 +82,7 @@ function RenderFractal(){
                     }
                 }
                  
-            }
 
-            blocks[i].finished = true
-
-            //newblocks.push(blocks[i])
         }
 
         blocks = newblocks

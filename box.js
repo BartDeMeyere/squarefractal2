@@ -25,8 +25,8 @@ class Box{
 
     update(){
 
-        this.x += (this.targetx - this.x) * .03
-        this.y += (this.targety - this.y) * .03
+        this.x += (this.targetx - this.x) * .08
+        this.y += (this.targety - this.y) * .08
     }
 
 }
