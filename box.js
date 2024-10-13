@@ -1,32 +1,28 @@
 class Box{
 
-    constructor(x , y , size , color){
+    constructor(x , y , size , rotation , color){
 
         this.x = x 
         this.y = y 
         this.size = size
         this.finished = false
         this.color = color
-        this.currentsize = 0
-        this.targetx = undefined 
-        this.targety = undefined
+        this.rotation = rotation
+        this.created = false
+
     }
 
     draw(){
 
-
+        c.save()
+        c.translate(this.x , this.y)
+        c.rotate(this.rotation)
         c.beginPath()
-        c.strokeStyle = this.color
-        c.rect(this.x , this.y , this.size , this.size)
-        c.stroke()
+        c.fillStyle = this.color
+        c.rect(-this.size/2 , -this.size/2 , this.size , this.size)
+        c.fill()
         c.closePath()
-      
+        c.restore()
+
     }
-
-    update(){
-
-        this.x += (this.targetx - this.x) * .08
-        this.y += (this.targety - this.y) * .08
-    }
-
 }
