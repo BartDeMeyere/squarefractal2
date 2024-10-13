@@ -105,8 +105,8 @@ function CreateFractal(){
                                 var box = new Box(boxes[i].x , boxes[i].y , boxes[i].size/2 , 0 , color)
                                 boxes.push(box)
 
-                                var nx = boxes[i].x + c * boxes[i].size/1.4
-                                var ny = boxes[i].y + r * boxes[i].size/1.4
+                                var nx = boxes[i].x + c * boxes[i].size/1.35
+                                var ny = boxes[i].y + r * boxes[i].size/1.35
 
                                 EaseRotation(box , 0 , 2 * Math.PI * .75 , easing)
                                 EaseOut(box , nx  , ny , easing)
