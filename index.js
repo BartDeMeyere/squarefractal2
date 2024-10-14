@@ -7,11 +7,10 @@ canvas.height = innerHeight * devicePixelRatio
 canvas.style.width = 100 + "%"
 canvas.style.height = 100 + "%"
 
-var size = 500 
-var easing = .05
-var order = 1
+var currentsize = 400
+var easing = .03
 var boxes = []
-var color = "hsla(" + Math.floor(Math.random() * 360) + ",100%,50%,.3)"
+var color = "hsla(" + Math.floor(Math.random() * 360) + ",100%,50%,1)"
 CreateFractal()
 renderContent()
 
@@ -75,8 +74,9 @@ function EaseOut(object , nx , ny , easing){
 
 function CreateFractal(){
 
-    if(boxes.length >= 5011){
+    if(currentsize % 5 > 0){
 
+        console.log(currentsize)
         console.log("we are done")
         return
 
@@ -85,7 +85,7 @@ function CreateFractal(){
         //create first box
         if(boxes.length === 0){
 
-            var box = new Box(canvas.width/2 , canvas.height/2 , size , 0 , color)
+            var box = new Box(canvas.width/2 , canvas.height/2 , currentsize , 0 , color)
             boxes.push(box)
             EaseRotation(box , 0 ,  2 * Math.PI/2 , easing)
 
@@ -94,7 +94,7 @@ function CreateFractal(){
 
             for(var i = boxes.length - 1  ; i >= 0  ; i--){
 
-                if(boxes[i].finished && !boxes[i].created){
+                if(boxes[i].finished  && !boxes[i].created ){
 
                     for(var r = -1 ; r < 2 ; r++){
 
@@ -102,7 +102,12 @@ function CreateFractal(){
 
                             if((r === -1 && c === -1) || (r === -1 && c === 1) || ( r === 1 && c === -1) || ( r === 1 && c === 1)){
 
-                                var box = new Box(boxes[i].x , boxes[i].y , boxes[i].size/2 , 0 , color)
+                                var x = boxes[i].x 
+                                var y = boxes[i].y
+                                
+                                currentsize = boxes[i].size/2 
+
+                                var box = new Box(x , y , currentsize ,  0 , color)
                                 boxes.push(box)
 
                                 var nx = boxes[i].x + c * boxes[i].size/1.35
@@ -116,6 +121,7 @@ function CreateFractal(){
 
     
                     boxes[i].created = true
+               
             
                 }
 
